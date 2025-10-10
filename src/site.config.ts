@@ -1,60 +1,87 @@
 import type { SiteConfig } from "@/types";
 import type { AstroExpressiveCodeOptions } from "astro-expressive-code";
 
+/**
+ * 🌵 站点基础配置
+ */
 export const siteConfig: SiteConfig = {
-	// 作者名称（用于元数据、OG图片等）
+	// 作者信息，用于 meta 和 OG 图片生成
 	author: "Forest 李",
-
-	// 网站标题（用于 <title> 和 manifest）
-	title: "Forest 李主题",
-
-	// 网站简短标语，用于 meta description 或首页展示
-	tagline: "以科技之光，点亮分享与生活的灵感",
-
-	// 网站描述（SEO / manifest）
-	description:
-		"Forest 李主题 —— 简洁优雅的博客主题，分享，交流与记录生活。",
-
-	// 网站基础语言与区域设置
-	lang: "zh-CN",
-	ogLocale: "zh-CN",
-
-	// 日期格式设置（在文章页或列表中统一调用）
+	// 日期格式（用于文章发布日期）
 	date: {
 		locale: "zh-CN",
 		options: {
-			day: "numeric",
-			month: "narrow",
 			year: "numeric",
+			month: "long",
+			day: "numeric",
+			weekday: "short", // 增加星期显示
 		},
 	},
-
-	// 网站主题色（浏览器地址栏/Manifest）
-	themeColor: "#4da6ff",
-
-	// 社交账号链接（用于页脚或作者信息）
-	social: {
-	   email: "lee@example.com", // 联系邮箱
-	},
-
-	// 网站 favicon 与分享用图片（相对路径）
-	images: {
-		favicon: "/favicon.svg",
-		ogImage: "/images/og-default.png",
-	},
-
-	// 网站版权与备案信息
+	// 网站描述（SEO + Manifest）
+	description: "一个专注于分享与记录生活的 Forest 李 主题 —— 分享，记录。",
+	// HTML 语言属性
+	lang: "zh-CN",
+	// Open Graph 语言标识
+	ogLocale: "zh_CN",
+	// 网站标题（meta + manifest）
+	title: "仙人掌主题 | Cactus Theme",
+	// 网站关键词（用于 SEO）
+	keywords: ["Astro 博客", "Forest 李主题", "技术分享", "美图秀秀", "记录生活"],
+	// 网站基础 URL（用于生成绝对路径）
+	siteUrl: "https://cactus-theme.example.com",
+	// 网站 favicon / 图标路径（用于 BaseHead）
+	favicon: "/favicon.svg",
+	// 页脚版权信息
 	footer: {
-		copyright: "© 2025 Forest 李. 保留所有权利。",
-	// RSS / Sitemap / SEO 配置
-	seo: {
-		keywords: ["Forest 李", "主题", "个人博客", "分享", "记录生活"],
-		baseUrl: "https://blog.778112..com", // 你的网站域名
+		since: 2024,
+		copyright: "Forest李主题 · 版权所有",
+		poweredBy: "Astro + Expressive Code",
 	},
+};
 
-	// 代码高亮主题配置（Astro Expressive Code）
-	code: {
-		theme: "github-dark",
-		lineNumbers: true,
-	} satisfies AstroExpressiveCodeOptions,
+/**
+ * 🧭 导航菜单
+ */
+export const menuLinks: { path: string; title: string }[] = [
+	{ path: "/", title: "主页" },
+	{ path: "/about/", title: "关于我" },
+	{ path: "/posts/", title: "博客文章" },
+	{ path: "/notes/", title: "学习笔记" },
+	{ path: "/projects/", title: "项目集" },
+	{ path: "/contact/", title: "联系" },
+];
+
+/**
+ * 💻 Expressive Code 代码高亮配置
+ * https://expressive-code.com/reference/configuration/
+ */
+export const expressiveCodeOptions: AstroExpressiveCodeOptions = {
+	styleOverrides: {
+		borderRadius: "8px",
+		codeFontFamily:
+			'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;',
+		codeFontSize: "0.9rem",
+		codeLineHeight: "1.8rem",
+		codePaddingInline: "1.25rem",
+		frames: {
+			frameBoxShadowCssValue: "0 2px 8px rgba(0,0,0,0.1)",
+		},
+		uiLineHeight: "inherit",
+	},
+	themeCssSelector(theme, { styleVariants }) {
+		if (styleVariants.length >= 2) {
+			const baseTheme = styleVariants[0]?.theme;
+			const altTheme = styleVariants.find((v) => v.theme.type !== baseTheme?.type)?.theme;
+			if (theme === baseTheme || theme === altTheme)
+				return `[data-theme='${theme.type}']`;
+		}
+		return `[data-theme="${theme.name}"]`;
+	},
+	themes: ["dracula", "github-light"], // 暗色 + 亮色
+	useThemedScrollbars: true, // 个性化滚动条
+	showCopyButton: true, // 在代码块右上角显示复制按钮
+	rendering: {
+		lineNumbers: true, // 显示行号
+		highlightedLineBackground: "rgba(56, 189, 248, 0.15)", // 高亮行背景色（浅蓝）
+	},
 };
