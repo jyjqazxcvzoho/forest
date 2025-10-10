@@ -24,9 +24,9 @@ export const siteConfig: SiteConfig = {
 	// Open Graph 语言标识
 	ogLocale: "zh_CN",
 	// 网站标题（meta + manifest）
-	title: "仙人掌主题 | Cactus Theme",
+	title: "Forest 李主题 | Cactus Theme",
 	// 网站关键词（用于 SEO）
-	keywords: ["Astro 博客", "Forest 李主题", "技术分享", "美图秀秀", "记录生活"],
+	keywords: ["博客", "Forest 李主题", "技术分享", "美图秀秀", "记录生活"],
 	// 网站基础 URL（用于生成绝对路径）
 	siteUrl: "https://cactus-theme.example.com",
 	// 网站 favicon / 图标路径（用于 BaseHead）
@@ -46,8 +46,8 @@ export const menuLinks: { path: string; title: string }[] = [
 	{ path: "/", title: "主页" },
 	{ path: "/about/", title: "关于我" },
 	{ path: "/posts/", title: "博客文章" },
-	{ path: "/notes/", title: "学习笔记" },
-	{ path: "/projects/", title: "项目集" },
+	{ path: "/notes/", title: "技术分享" },
+	{ path: "/projects/", title: "美图秀秀" },
 	{ path: "/contact/", title: "联系" },
 ];
 
